@@ -57,7 +57,7 @@
                             <p>Agregar Productos</p>
                         </a>
                     </li>
-                    <li class="active ">
+                    <li>
                         <a href="./verproductos.html">
                             <i class="now-ui-icons design_app"></i>
                             <p>Ver Productos</p>
@@ -90,7 +90,7 @@
                         </a>
                     </li>
                     <hr>
-                    <li>
+                    <li class="active ">
                         <a href="./agregar-categoprod.html">
                             <i class="fas fa-archive"></i>
                             <p>Agregar Categoria-Producto</p>
@@ -108,7 +108,7 @@
         </div>
         <div class="main-panel" id="main-panel">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg mb-5 w-100" style="background: linear-gradient(
+            <nav class="navbar navbar-expand-lg mb-5" style="background: linear-gradient(
                 90deg
                 , #1155ff, rgba(0, 242, 255, 0.85));">
                 <div class="container-fluid">
@@ -120,9 +120,8 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-
                         <div class="row">
-                            <h2 class="m-3 ml-5 text-light">Ver Productos</h2>
+                            <h2 class="m-3 text-light ml-5">Agregar Categoria-Producto</h2>
                         </div>
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -132,50 +131,19 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="row">
-                    <!--Inicio Tabla-->
-                    <table class=" table table-hover col-11 m-auto" style="font-size: 10px;">
-                        <thead>
-                            <tr>
-                                <th scope="col">Codigo de Barras</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Proveedor</th>
-                                <th scope="col">Precio Compra</th>
-                                <th scope="col">Precio Venta</th>
-                                <th scope="col">Stock</th>
-                                <th scope="col">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <!--Fin Tabla-->
+                    <!--Inicio Fomulario-->
+                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5">
+                        <div class="mb-3">
+                            <label for="lblCategoria" class="form-label">Identificador de la Categoria</label>
+                            <input type="text" class="form-control" id="lblCategoria">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lblProducto" class="form-label">Identificador del Producto</label>
+                            <input type="text" class="form-control" id="lblProducto">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-5">Guardar Registro</button>
+                    </form>
+                    <!--Fin Fomulario-->
                 </div>
             </div>
             <footer class="footer">
