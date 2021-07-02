@@ -51,7 +51,7 @@
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
-          <li class="active ">
+          <li>
             <a href="./index.html">
               <i class="fas fa-shopping-cart"></i>
               <p>Agregar Productos</p>
@@ -117,7 +117,7 @@
             </a>
           </li>
           <hr>
-          <li>
+          <li class="active ">
             <a href="./agregar-ticket.html">
             <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
               <p>Agregar Ticket</p>
@@ -148,7 +148,7 @@
               </button>
             </div>
             <div class="row">
-              <h2 class="m-3 text-light ml-5">Agregar Productos</h2>
+              <h2 class="m-3 text-light ml-5">Agregar Ticket</h2>
             </div>
           </div>
           <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -161,42 +161,15 @@
           <!--Inicio Fomulario-->
           <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5">
             <div class="mb-3">
-              <label for="lblCodigoBarras" class="form-label">Codigo de barras</label>
-              <input type="email" class="form-control" id="lblCodigoBarras" aria-describedby="emailHelp">
+              <label for="lblFecha" class="form-label">Fecha</label>
+              <input type="datetime-local" class="form-control" id="lblFecha" aria-describedby="emailHelp">
             </div>
             <div class="mb-3">
-              <label for="lblNombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="lblNombre">
+              <label for="lblTotal" class="form-label">Total</label>
+              <input type="text" class="form-control" id="lblTotal">
             </div>
-            <div class="mb-3">
-              <label for="lblProveedor" class="form-label">Proveedor</label>
-              <select class="custom-select" id="lblProveedor">
-                <option selected>-Seleccione Proveedor-</option>
-                <option value="1"></option>
-                <option value="2"></option>
-              </select>
-            </div>
-            <div class="mb-3">
-              <label for="lblPrecioCompra" class="form-label">Precio a la Compra</label>
-              <input type="text" class="form-control" id="lblPrecioCompra">
-            </div>
-            <div class="mb-3">
-              <label for="lblPrecioVenta" class="form-label">Precio a la Venta</label>
-              <input type="text" class="form-control" id="lblPrecioVenta">
-            </div>
-            <div class="mb-3">
-              <label for="lblStockM" class="form-label">Stock</label>
-              <input type="number" class="form-control" id="lblStock">
-            </div>
-            <div class="mb-3">
-              <label for="lblStatus" class="form-label">Status</label>
-              <select class="custom-select" id="lblStatus">
-                <option selected>-Seleccione Categoria-</option>
-                <option value="1">Disponible</option>
-                <option value="2">No Disponible</option>
-              </select>
-            </div>
-            <button type="submit" class="btn btn-primary mb-5">Guardar Producto</button>
+            
+            <button type="submit" class="btn btn-primary mb-5">Generar</button>
           </form>
           <!--Fin Fomulario-->
         </div>
