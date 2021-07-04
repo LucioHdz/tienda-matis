@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./verproductos.html">
+                        <a href="./verproductos.php">
                             <i class="now-ui-icons design_app"></i>
                             <p>Ver Productos</p>
                         </a>
@@ -70,8 +70,8 @@
                             <p>Agregar Proveedor</p>
                         </a>
                     </li>
-                    <li>
-                        <a href="./verproveedores.html">
+                    <li class="active ">
+                        <a href="./verproveedores.php">
                             <i class="fab fa-dropbox"></i>
                             <p>Ver Proveedores</p>
                         </a>
@@ -84,51 +84,51 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./vercategoria.html">
+                        <a href="./vercategoria.php">
                             <i class="fas fa-boxes"></i>
                             <p>Ver Categorias</p>
                         </a>
-                        <hr>
-                        <li>
-                            <a href="./agregar-categoprod.html">
-                                <i class="fas fa-archive"></i>
-                                <p>Agregar Categoria-Producto</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="./ver-categoprod.html">
-                                <i class="fas fa-book-open"></i>
-                                <p>Ver Categoria-Producto</p>
-                            </a>
-                        </li>
                     </li>
-                </li>
-                <hr>
+                    <hr>
+                    <li>
+                        <a href="./agregar-categoprod.html">
+                            <i class="fas fa-archive"></i>
+                            <p>Agregar Categoria-Producto</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="./ver-categoprod.php">
+                            <i class="fas fa-book-open"></i>
+                            <p>Ver Categoria-Producto</p>
+                        </a>
+                    </li>
+                    <hr>
                     <li >
                         <a href="./agregar-venta.html">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                           <p>Agregar Venta</p>
                         </a>
                       </li>
-                      <li>
-                        <a href="./ver-venta.html">
+                      <li >
+                        <a href="./ver-venta.php">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
                           <p>Ver Venta</p>
                         </a>
                       </li>
                       <hr>
                       <li>
-                      <a href="./agregar-ticket.html">
+                        <a href="./agregar-ticket.html">
                         <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                        <p>Agregar Ticket</p>
-                    </a>
-                </li>
-                          <li class="active ">
-                        <a href="./ver-ticket.html">
+                          <p>Agregar Ticket</p>
+                        </a>
+                      </li>
+                      <li>
+                        <a href="./ver-ticket.php">
                           <i class="fa fa-list-alt" aria-hidden="true"></i>
                           <p>Ver Ticket</p>
                         </a>
                       </li>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -148,7 +148,7 @@
                         </div>
 
                         <div class="row">
-                            <h2 class="m-3 ml-5 text-light">Ver Ticket</h2>
+                            <h2 class="m-3 ml-5 text-light">Ver Proveedores</h2>
                         </div>
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -162,28 +162,32 @@
                     <table class="table table-hover col-10 m-auto" style="font-size: 10px;">
                         <thead>
                             <tr>
-                                <th scope="col">Numero de Ticket</th>
-                                <th scope="col">Fecha</th>
-                                <th scope="col">Total</th>
-                                
+                                <th scope="col">Identificador de Proveedor</th>
+                                <th scope="col">Proveedor</th>
+                                <th scope="col">Contacto</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                        <?php
+                            include("connections/Connections.php");
+                            $query = "SELECT
+                            proveedor.idProveedor AS id, 
+                            proveedor.nombre AS Proveedor, 
+                            proveedor.contacto AS 'Contacto'
+                        FROM
+                            proveedor ORDER BY Proveedor";
+                            $resultado = mysqli_query($connection,$query);
+
+                            while($results = mysqli_fetch_array($resultado)){
+                                echo "
+                                  <tr>
+                                  <th scope='row'>".$results["id"]."</th> 
+                                  <th scope='row'>".$results["Proveedor"]."</th> 
+                                  <th scope='row'>".$results["Contacto"]."</th> 
+                                  </tr>
+                                ";
+                            }
+                          ?>
                         </tbody>
                     </table>
                     <!--Fin Tabla-->

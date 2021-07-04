@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./verproductos.html">
+                        <a href="./verproductos.php">
                             <i class="now-ui-icons design_app"></i>
                             <p>Ver Productos</p>
                         </a>
@@ -71,7 +71,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./verproveedores.html">
+                        <a href="./verproveedores.php">
                             <i class="fab fa-dropbox"></i>
                             <p>Ver Proveedores</p>
                         </a>
@@ -84,7 +84,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./vercategoria.html">
+                        <a href="./vercategoria.php">
                             <i class="fas fa-boxes"></i>
                             <p>Ver Categorias</p>
                         </a>
@@ -96,7 +96,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="./ver-categoprod.html">
+                            <a href="./ver-categoprod.php">
                                 <i class="fas fa-book-open"></i>
                                 <p>Ver Categoria-Producto</p>
                             </a>
@@ -111,7 +111,7 @@
                         </a>
                       </li>
                       <li class = "active">
-                        <a href="./ver-venta.html">
+                        <a href="./ver-venta.php">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
                           <p>Ver Venta</p>
                         </a>
@@ -124,7 +124,7 @@
                         </a>
                       </li>
                       <li>
-                        <a href="./ver-ticket.html">
+                        <a href="./ver-ticket.php">
                           <i class="fa fa-list-alt" aria-hidden="true"></i>
                           <p>Ver Ticket</p>
                         </a>
@@ -163,30 +163,48 @@
                     <table class="table table-hover col-10 m-auto" style="font-size: 10px;">
                         <thead>
                             <tr>
-                                <th scope="col">Identificador de Venta-Producto</th>
-                                <th scope="col">Codigo De Barras</th>
-                                <th scope="col">Numero de Ticket</th>
+                                <th scope="col">id</th>
+                                <th scope="col">ticket</th>
+                                <th scope="col">Producto</th>
                                 <th scope="col">Cantidad</th>
+                                <th scope="col">Precio</th>
                                 <th scope="col">Total</th>
                                 
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
+                        <?php
+                                include("connections/Connections.php");
+                                $query = "SELECT
+                                detalleventaproducto.idVentaProducto AS id, 
+                                detalleventaproducto.noTicket AS ticket, 
+                                producto.nombre AS Producto, 
+                                detalleventaproducto.cantidad AS Cantidad, 
+                                producto.precioVenta AS Precio, 
+                                detalleventaproducto.totalProductos AS Total
+                            FROM
+                                detalleventaproducto
+                                INNER JOIN
+                                producto
+                                ON 
+                                    detalleventaproducto.codigoDeBarras = producto.codigoDeBarras
+                            ORDER BY
+                                Producto";
+                                $resultado = mysqli_query($connection,$query);
+
+                                while($results = mysqli_fetch_array($resultado)){
+                                    echo "
+                                    <tr>
+                                    <th scope='row'>".$results["id"]."</th> 
+                                    <th scope='row'>".$results["ticket"]."</th> 
+                                    <th scope='row'>".$results["Producto"]."</th> 
+                                    <th scope='row'>".$results["Cantidad"]."</th> 
+                                    <th scope='row'>".$results["Precio"]."</th> 
+                                    <th scope='row'>".$results["Total"]."</th> 
+                                    </tr>
+                                    ";
+                                }
+                            ?>
                         </tbody>
                     </table>
                     <!--Fin Tabla-->

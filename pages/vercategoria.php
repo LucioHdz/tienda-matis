@@ -51,7 +51,7 @@
             </div>
             <div class="sidebar-wrapper" id="sidebar-wrapper">
                 <ul class="nav">
-                    <li class="">
+                    <li>
                         <a href="./index.html">
                             <i class="fas fa-shopping-cart"></i>
                             <p>Agregar Productos</p>
@@ -83,7 +83,7 @@
                             <p>Agregar Categoria</p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active ">
                         <a href="./vercategoria.php">
                             <i class="fas fa-boxes"></i>
                             <p>Ver Categorias</p>
@@ -102,42 +102,28 @@
                             <p>Ver Categoria-Producto</p>
                         </a>
                     </li>
-                    </li>
-                    </li>
                     <hr>
-                    <li class = "active">
+                    <li >
                         <a href="./agregar-venta.html">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                            <p>Agregar Venta</p>
+                          <p>Agregar Venta</p>
                         </a>
-                    </li>
-                    <li>
+                      </li>
+                      <li>
                         <a href="./ver-venta.php">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
-                            <p>Ver Venta</p>
+                          <p>Ver Venta</p>
                         </a>
-                    </li>
-                    <hr>
-                    <li>
-                      <a href="./agregar-ticket.html">
-                      <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                        <p>Agregar Ticket</p>
-                      </a>
-                    </li>
-                    <li>
-                      <a href="./ver-ticket.php">
-                        <i class="fa fa-list-alt" aria-hidden="true"></i>
-                        <p>Ver Ticket</p>
-                      </a>
+                      </li>
                     </li>
                 </ul>
             </div>
         </div>
         <div class="main-panel" id="main-panel">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg mb-5" style="background: linear-gradient(
-        90deg
-        , #1155ff, rgba(0, 242, 255, 0.85));">
+            <nav class="navbar navbar-expand-lg mb-5 w-100" style="background: linear-gradient(
+                90deg
+                , #1155ff, rgba(0, 242, 255, 0.85));">
                 <div class="container-fluid">
                     <div class="navbar-wrapper">
                         <div class="navbar-toggle">
@@ -147,8 +133,9 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
+
                         <div class="row">
-                            <h2 class="m-3 text-light ml-5">Agregar Venta</h2>
+                            <h2 class="m-3 ml-5 text-light">Ver Categorias</h2>
                         </div>
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -158,31 +145,36 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="row">
-                    <!--Inicio Fomulario-->
-                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5">
-                        <div class="mb-3">
-                            <label for="lblCodigoBarras" class="form-label">Codigo de barras</label>
-                            <input type="text" class="form-control" id="lblCodigoBarras" aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <label for="lblCantidad" class="form-label">Cantidad</label>
-                            <input type="number" class="form-control" id="lblCantidad">
-                        </div>
-                        <div class="mb-3">
-                            <label for="lblTicket" class="form-label">Numero de Ticket</label>
-                            <select class="custom-select" id="lblTicket">
-                                <option selected>-Seleccione Ticket-</option>
-                                <option value="1"></option>
-                                <option value="2"></option>
-                            </select>
-                        </div>
-                        <!-- <div class="mb-3">
-              <label class="form-label">Total Producto</label>
-            </div> -->
+                    <!--Inicio Tabla-->
+                    <table class="table table-hover col-8 m-auto" style="font-size: 10px;">
+                        <thead>
+                            <tr>
+                                <th scope="col">Identificador de Categoria</th>
+                                <th scope="col">Categoria</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                include("connections/Connections.php");
+                                $query = "SELECT
+                                    categoria.idCategoria AS Id, 
+                                    categoria.nombre AS Categoria
+                                FROM
+                                    categoria ORDER BY Categoria";
+                                $resultado = mysqli_query($connection,$query);
 
-                        <button type="submit" class="btn btn-primary mb-5">Agregar Venta</button>
-                    </form>
-                    <!--Fin Fomulario-->
+                                while($results = mysqli_fetch_array($resultado)){
+                                    echo "
+                                    <tr>
+                                    <th scope='row'>".$results["Id"]."</th> 
+                                    <th scope='row'>".$results["Categoria"]."</th> 
+                                    </tr>
+                                    ";
+                                }
+                            ?>
+                        </tbody>
+                    </table>
+                    <!--Fin Tabla-->
                 </div>
             </div>
             <footer class="footer">
@@ -201,8 +193,8 @@
                         &copy;
                         <script>
                             document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
-                        </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Invision</a>. Coded by <a
-                            href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
+                        </script>, Designed by <a href="https://www.invisionapp.com" target="_blank">Invision</a>.
+                        Coded by <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a>.
                     </div>
                 </div>
             </footer>
