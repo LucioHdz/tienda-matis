@@ -152,111 +152,46 @@
             </nav>
             <!-- End Navbar -->
             <div class="content">
-                <div class="row justify-content-start">
-                    <!--Inicio Fomulario-->
-                        <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action = "ver-venta.php" method = "post">
-                                <div class="col-4">
-                                    <select name="ticket" id="cmbTicket">
-                                    <option selected>-Elige el ticket-</option>
-                                    <option value=0>Todos</option>
-                                        <?php
-                                            include("connections/Connections.php");
-                                            $query = "SELECT
-                                            venta.noTicket
-                                        FROM
-                                            venta
-                                        ORDER BY
-                                            venta.noTicket
-                                            ";
-                                            $resultado = mysqli_query($connection,$query);
-
-                                            while($results = mysqli_fetch_array($resultado)){
-                                                echo "
-                                                <option value=".$results["noTicket"].">".$results["noTicket"]."</option>
-                                                ";
-                                            }
-                                        ?>
-                                    </select>
-                                </div>
-                                <div class = "col-4">
-                                    <input type="submit" class="btn btn-primary mb-5" id="agregar-articulo" value= "Agregar">
-                                </div>
-                        </form>
-                    <!--Fin Fomulario-->
+                <div class="row">
+                    <label for="idTicket" > #</label>
+                    
+                    <?php
+                    include("connections/Connections.php");
+                    $query = "SELECT
+                    venta.noTicket
+                FROM
+                    venta
+                ORDER BY
+                    venta.noTicket DESC LIMIT 1";
+                    $resultado = mysqli_query($connection,$query);
+                    $results = mysqli_fetch_array($resultado);
+                    if ($results){
+                        echo " <p id ='idticket'> ".($results["noTicket"]+1)."</p>";
+                    }else{
+                        echo " <p id ='idticket'>1</p>";
+                    }
+                    ?>
                 </div>
                 <div class="row">
-                    <!--Inicio Tabla-->
-                        <table class="table table-hover col-10 m-auto" style="font-size: 10px;">
-                            <thead>
-                                <tr>
-                                    <th scope="col">id</th>
-                                    <th scope="col">ticket</th>
-                                    <th scope="col">Producto</th>
-                                    <th scope="col">Cantidad</th>
-                                    <th scope="col">Precio</th>
-                                    <th scope="col">Total</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <?php
-                                    include("connections/Connections.php");
-                                    if (isset($_POST['ticket'])){
-                                        $combo = $_POST['ticket'];
-                                        if($combo == 0){
-                                            $query = "SELECT
-                                                detalleventaproducto.idVentaProducto AS id, 
-                                                detalleventaproducto.noTicket AS ticket, 
-                                                producto.nombre AS Producto, 
-                                                detalleventaproducto.cantidad AS Cantidad, 
-                                                producto.precioVenta AS Precio, 
-                                                detalleventaproducto.totalProductos AS Total
-                                            FROM
-                                                detalleventaproducto
-                                            INNER JOIN
-                                                producto
-                                            ON 
-                                                detalleventaproducto.codigoDeBarras = producto.codigoDeBarras
-                                            ORDER BY
-                                                Producto";
-                                        }else{
-                                            $query = "SELECT
-                                                detalleventaproducto.idVentaProducto AS id, 
-                                                detalleventaproducto.noTicket AS ticket, 
-                                                producto.nombre AS Producto, 
-                                                detalleventaproducto.cantidad AS Cantidad, 
-                                                producto.precioVenta AS Precio, 
-                                                detalleventaproducto.totalProductos AS Total
-                                            FROM
-                                                detalleventaproducto
-                                            INNER JOIN
-                                                producto
-                                            ON 
-                                                detalleventaproducto.codigoDeBarras = producto.codigoDeBarras
-                                            WHERE
-                                                detalleventaproducto.noTicket =$combo
-                                            ORDER BY
-                                                Producto";
-                                        }
-                                        $resultado = mysqli_query($connection,$query);
-        
-                                        while($results = mysqli_fetch_array($resultado)){
-                                            echo "
-                                            <tr>
-                                            <th scope='row'>".$results["id"]."</th> 
-                                            <th scope='row'>".$results["ticket"]."</th> 
-                                            <th scope='row'>".$results["Producto"]."</th> 
-                                            <th scope='row'>".$results["Cantidad"]."</th> 
-                                            <th scope='row'>".$results["Precio"]."</th> 
-                                            <th scope='row'>".$results["Total"]."</th> 
-                                            </tr>
-                                            ";
-                                        }
-                                    }
-                                ?>
-                            </tbody>
-                        </table>
-                <!--Fin Tabla-->
+                    <!--Inicio Fomulario-->
+                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5">
+                            <div class="mb-3">
+                                <label for="lblCodigoBarras" class="form-label">Codigo de barras</label>
+                                <input type="text" class="form-control" id="lblCodigoBarras" aria-describedby="emailHelp">
+                            </div>
+                            <div class="mb-3">
+                                <label for="lblCantidad" class="form-label">Cantidad</label>
+                                <input type="number" class="form-control" id="lblCantidad">
+                            </div>
+                            
+                        <!-- <div class="mb-3">
+              <label class="form-label">Total Producto</label>
+            </div> -->
+
+                        <input type="submit" class="btn btn-primary mb-5" id="agregar-articulo" value= "Agregar">
+                        <input type="submit" class="btn btn-primary mb-5" id="terminar-venta" value = "Terminar">
+                    </form>
+                    <!--Fin Fomulario-->
                 </div>
             </div>
             <footer class="footer">

@@ -117,12 +117,6 @@
                         </a>
                       </li>
                       <hr>
-                      <li>
-                      <a href="./agregar-ticket.html">
-                        <i class="fa fa-arrow-circle-right" aria-hidden="true"></i>
-                        <p>Agregar Ticket</p>
-                    </a>
-                </li>
                           <li class="active ">
                         <a href="./ver-ticket.php">
                           <i class="fa fa-list-alt" aria-hidden="true"></i>

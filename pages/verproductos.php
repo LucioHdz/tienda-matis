@@ -115,6 +115,13 @@
                           <p>Ver Venta</p>
                         </a>
                       </li>
+                      <hr>
+                      <li>
+                        <a href="./ver-ticket.php">
+                          <i class="fa fa-list-alt" aria-hidden="true"></i>
+                          <p>Ver Ticket</p>
+                        </a>
+                      </li>
                     </li>
                 </ul>
             </div>
