@@ -45,14 +45,14 @@
         Tip 1: You can change the color of the sidebar using: data-color="blue | green | orange | red | yellow"
     -->
       <div class="logo">
-        <a href="./index.html" class="simple-text logo-normal">
+        <a href="./index.php" class="simple-text logo-normal">
           Proyecto Tiendita
         </a>
       </div>
       <div class="sidebar-wrapper" id="sidebar-wrapper">
         <ul class="nav">
           <li class="active ">
-            <a href="./index.html">
+            <a href="./index.php">
               <i class="fas fa-shopping-cart"></i>
               <p>Agregar Productos</p>
             </a>
@@ -65,13 +65,13 @@
           </li>
           <hr>
           <li>
-            <a href="./agregarproveedores.html">
+            <a href="./agregarproveedores.php">
               <i class="fas fa-parachute-box"></i>
               <p>Agregar Proveedor</p>
             </a>
           </li>
           <li>
-            <a href="./verproveedores.html">
+            <a href="./verproveedores.php">
               <i class="fab fa-dropbox"></i>
               <p>Ver Proveedores</p>
             </a>
@@ -159,42 +159,54 @@
       <div class="content">
         <div class="row">
           <!--Inicio Fomulario-->
-          <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5">
+          <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action="guardar-producto.php" method="post">
             <div class="mb-3">
               <label for="lblCodigoBarras" class="form-label">Codigo de barras</label>
-              <input type="email" class="form-control" id="lblCodigoBarras" aria-describedby="emailHelp">
+              <input type="text" class="form-control" id="lblCodigoBarras" aria-describedby="emailHelp" name="txtCodigoBarras">
             </div>
             <div class="mb-3">
               <label for="lblNombre" class="form-label">Nombre</label>
-              <input type="text" class="form-control" id="lblNombre">
+              <input type="text" class="form-control" id="lblNombre" name="txtNombre">
             </div>
             <div class="mb-3">
               <label for="lblProveedor" class="form-label">Proveedor</label>
-              <select class="custom-select" id="lblProveedor">
+              <select class="custom-select" id="lblProveedor" name="cmbProveedor">
                 <option selected>-Seleccione Proveedor-</option>
-                <option value="1"></option>
-                <option value="2"></option>
+                <?php
+                  include("conexion/conexion-maestra.php");
+                  $sentencia="SELECT * FROM proveedor";
+                  $resultado=mysqli_query($conexion,$sentencia);
+                  while($regisProveedor=mysqli_fetch_assoc($resultado)){
+                    echo"
+                      <option value='" . $regisProveedor["idProveedor"] . "'> " . $regisProveedor["nombre"] . "</option>
+                    ";
+                  }
+                  mysqli_close($conexion);
+                  
+                ?>
+                
               </select>
             </div>
             <div class="mb-3">
               <label for="lblPrecioCompra" class="form-label">Precio a la Compra</label>
-              <input type="text" class="form-control" id="lblPrecioCompra">
+              <input type="number" class="form-control" id="lblPrecioCompra" name="txtPrecioCompra">
             </div>
             <div class="mb-3">
               <label for="lblPrecioVenta" class="form-label">Precio a la Venta</label>
-              <input type="text" class="form-control" id="lblPrecioVenta">
+              <input type="number" class="form-control" id="lblPrecioVenta" name="txtPrecioVenta">
             </div>
             <div class="mb-3">
               <label for="lblStockM" class="form-label">Stock</label>
-              <input type="number" class="form-control" id="lblStock">
+              <input type="number" class="form-control" id="lblStock" name="txtStock">
             </div>
             <div class="mb-3">
-              <label for="lblStatus" class="form-label">Status</label>
-              <select class="custom-select" id="lblStatus">
-                <option selected>-Seleccione Categoria-</option>
-                <option value="1">Disponible</option>
-                <option value="2">No Disponible</option>
-              </select>
+              
+              <select class="custom-select" id="lblStatus" name="cmbStatus">
+                <option selected>-Seleccione el estado-</option>
+                  <option value=1>Activo</option>
+                  <option value=0>Inactivo</option>
+                </select>
+              <!--<input type="number" class="form-control" id="lblStatus" placeholder="1/0" name="txtStatus">-->
             </div>
             <button type="submit" class="btn btn-primary mb-5">Guardar Producto</button>
           </form>
