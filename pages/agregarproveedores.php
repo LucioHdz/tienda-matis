@@ -58,19 +58,19 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./verproductos.php">
+                        <a href="./verproductos.html">
                             <i class="now-ui-icons design_app"></i>
                             <p>Ver Productos</p>
                         </a>
                     </li>
                     <hr>
-                    <li>
+                    <li class="active ">
                         <a href="./agregarproveedores.php">
                             <i class="fas fa-parachute-box"></i>
                             <p>Agregar Proveedor</p>
                         </a>
                     </li>
-                    <li class="active ">
+                    <li>
                         <a href="./verproveedores.php">
                             <i class="fab fa-dropbox"></i>
                             <p>Ver Proveedores</p>
@@ -84,7 +84,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./vercategoria.php">
+                        <a href="./vercategoria.html">
                             <i class="fas fa-boxes"></i>
                             <p>Ver Categorias</p>
                         </a>
@@ -97,7 +97,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./ver-categoprod.php">
+                        <a href="./ver-categoprod.html">
                             <i class="fas fa-book-open"></i>
                             <p>Ver Categoria-Producto</p>
                         </a>
@@ -109,8 +109,8 @@
                           <p>Agregar Venta</p>
                         </a>
                       </li>
-                      <li >
-                        <a href="./ver-venta.php">
+                      <li>
+                        <a href="./ver-venta.html">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
                           <p>Ver Venta</p>
                         </a>
@@ -123,7 +123,7 @@
                         </a>
                       </li>
                       <li>
-                        <a href="./ver-ticket.php">
+                        <a href="./ver-ticket.html">
                           <i class="fa fa-list-alt" aria-hidden="true"></i>
                           <p>Ver Ticket</p>
                         </a>
@@ -134,7 +134,7 @@
         </div>
         <div class="main-panel" id="main-panel">
             <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg mb-5 w-100" style="background: linear-gradient(
+            <nav class="navbar navbar-expand-lg mb-5" style="background: linear-gradient(
                 90deg
                 , #1155ff, rgba(0, 242, 255, 0.85));">
                 <div class="container-fluid">
@@ -146,9 +146,8 @@
                                 <span class="navbar-toggler-bar bar3"></span>
                             </button>
                         </div>
-
                         <div class="row">
-                            <h2 class="m-3 ml-5 text-light">Ver Proveedores</h2>
+                            <h2 class="m-3 text-light ml-5">Agregar Proveedor</h2>
                         </div>
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -158,40 +157,19 @@
             <!-- End Navbar -->
             <div class="content">
                 <div class="row">
-                    <!--Inicio Tabla-->
-                    <table class="table table-hover col-10 m-auto" style="font-size: 10px;">
-                        <thead>
-                            <tr>
-                                <th scope="col">Identificador de Proveedor</th>
-
-                                <th scope="col">Proveedor</th>
-                                <th scope="col">Contacto</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <?php
-                            include("connections/Connections.php");
-                            $query = "SELECT
-                            proveedor.idProveedor AS id, 
-                            proveedor.nombre AS Proveedor, 
-                            proveedor.contacto AS 'Contacto'
-                        FROM
-                            proveedor ORDER BY Proveedor";
-                            $resultado = mysqli_query($connection,$query);
-
-                            while($results = mysqli_fetch_array($resultado)){
-                                echo "
-                                  <tr>
-                                  <th scope='row'>".$results["id"]."</th> 
-                                  <th scope='row'>".$results["Proveedor"]."</th> 
-                                  <th scope='row'>".$results["Contacto"]."</th> 
-                                  </tr>
-                                ";
-                            }
-                          ?>
-                        </tbody>
-                    </table>
-                    <!--Fin Tabla-->
+                    <!--Inicio Fomulario-->
+                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action="guardar-proveedor.php" method="post">
+                        <div class="mb-3">
+                            <label for="lblNombre" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="lblNombre" name="txtNombre">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lblContacto" class="form-label">Contacto</label>
+                            <input type="text" class="form-control" id="lblContacto" name="txtContacto">
+                        </div>
+                        <button type="submit" class="btn btn-primary mb-5">Guardar Proveedor</button>
+                    </form>
+                    <!--Fin Fomulario-->
                 </div>
             </div>
             <footer class="footer">
@@ -241,4 +219,5 @@
     </script>
 </body>
 
+>>>>>>> master:pages/agregarproveedores.php
 </html>
