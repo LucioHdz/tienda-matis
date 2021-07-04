@@ -90,7 +90,7 @@
                         </a>
                         <hr>
                         <li>
-                            <a href="./agregar-categoprod.html">
+                            <a href="./agregar-categoprod.php">
                                 <i class="fas fa-archive"></i>
                                 <p>Agregar Categoria-Producto</p>
                             </a>
@@ -104,13 +104,13 @@
                     </li>
                 </li>
                 <hr>
-                    <li >
-                        <a href="./agregar-venta.html">
+                    <li class= "active">
+                        <a href="./agregar-venta.php">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                           <p>Agregar Venta</p>
                         </a>
                       </li>
-                      <li class = "active">
+                      <li >
                         <a href="./ver-venta.php">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
                           <p>Ver Venta</p>

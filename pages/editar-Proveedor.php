@@ -84,40 +84,40 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./vercategoria.html">
+                        <a href="./vercategoria.php">
                             <i class="fas fa-boxes"></i>
                             <p>Ver Categorias</p>
                         </a>
                     </li>
                     <hr>
                     <li>
-                        <a href="./agregar-categoprod.html">
+                        <a href="./agregar-categoprod.php">
                             <i class="fas fa-archive"></i>
                             <p>Agregar Categoria-Producto</p>
                         </a>
                     </li>
                     <li>
-                        <a href="./ver-categoprod.html">
+                        <a href="./ver-categoprod.php">
                             <i class="fas fa-book-open"></i>
                             <p>Ver Categoria-Producto</p>
                         </a>
                     </li>
                     <hr>
                     <li >
-                        <a href="./agregar-venta.html">
+                        <a href="./agregar-venta.php">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
                           <p>Agregar Venta</p>
                         </a>
                       </li>
                       <li>
-                        <a href="./ver-venta.html">
+                        <a href="./ver-venta.php">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
                           <p>Ver Venta</p>
                         </a>
                       </li>
                       <hr>
                       <li>
-                        <a href="./ver-ticket.html">
+                        <a href="./ver-ticket.php">
                           <i class="fa fa-list-alt" aria-hidden="true"></i>
                           <p>Ver Ticket</p>
                         </a>
