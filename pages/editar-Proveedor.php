@@ -58,7 +58,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./verproductos.html">
+                        <a href="./verproductos.php">
                             <i class="now-ui-icons design_app"></i>
                             <p>Ver Productos</p>
                         </a>
@@ -78,7 +78,7 @@
                     </li>
                     <hr>
                     <li>
-                        <a href="./agregarcategoria.html">
+                        <a href="./agregarcategoria.php">
                             <i class="fas fa-sitemap"></i>
                             <p>Agregar Categoria</p>
                         </a>

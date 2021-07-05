@@ -36,6 +36,7 @@
     <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/demo/demo.css" rel="stylesheet" />
+    <script src ='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
 </head>
 
 <body class="">
@@ -58,7 +59,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="./verproductos.html">
+                        <a href="./verproductos.php">
                             <i class="now-ui-icons design_app"></i>
                             <p>Ver Productos</p>
                         </a>
@@ -78,7 +79,7 @@
                     </li>
                     <hr>
                     <li>
-                        <a href="./agregarcategoria.html">
+                        <a href="./agregarcategoria.php">
                             <i class="fas fa-sitemap"></i>
                             <p>Agregar Categoria</p>
                         </a>
@@ -152,7 +153,7 @@
             <div class="content">
                 <div class="row">
                     <!--Inicio Fomulario-->
-                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action="guardar-proveedor.php" method="post">
+                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action="agregarproveedores.php" method="post">
                         <div class="mb-3">
                             <label for="lblNombre" class="form-label">Nombre</label>
                             <input type="text" class="form-control" id="lblNombre" name="txtNombre">
@@ -164,6 +165,29 @@
                         <button type="submit" class="btn btn-primary mb-5">Guardar Proveedor</button>
                     </form>
                     <!--Fin Fomulario-->
+                    <div class="mb-3">
+                        <?php
+                            include("connections/Connections.php");
+                            include("../functions/add-cp.php");
+                            if (isset($_POST['txtNombre'])){
+                                $nombrePro = $_POST['txtNombre'];
+                                $contactoPro = $_POST['txtContacto'];
+                                if ($nombrePro== "" || $contactoPro==""){
+                                    $error = 0;
+                                }else{
+                                    $error = validar_proveedor($nombrePro,$contactoPro,$connection);
+                                }
+                                if($error == 1){
+                                    $query = "INSERT proveedor VALUES(DEFAULT,UPPER(TRIM('$nombrePro')),UPPER(TRIM('$contactoPro')))";
+                                    $resultado = mysqli_query($connection,$query);
+                                    echo "<script >swal('Agregado correctamente!!','presiona ok','success')</script>";
+                                }else{
+                                    echo "<script >swal('No se pudo completar la operacion',
+                                    'presiona ok y verifica datos repetidos o faltantes','error')</script>";
+                                }
+                            }
+                        ?>
+                    </div>
                 </div>
             </div>
             <footer class="footer">

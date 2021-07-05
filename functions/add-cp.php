@@ -39,7 +39,23 @@ function validar_categoria($nomCatego,$connection){
             WHERE categoria.nombre= UPPER(TRIM('$nomCatego'))";
     $resultado = mysqli_query($connection,$query);
 
-    if ($results = mysqli_fetch_array($resultado)){
+    if (mysqli_fetch_array($resultado)){
+        return 0;
+    }else{
+        return 1;
+    }
+}
+
+function validar_proveedor($nombreProve,$contactoProve,$connection){
+    $query="SELECT
+        proveedor.idProveedor, 
+        proveedor.nombre, 
+        proveedor.contacto
+    FROM
+        proveedor
+    WHERE proveedor.nombre=UPPER(TRIM('$nombreProve')) AND proveedor.contacto=UPPER(TRIM('$contactoProve'))";
+    $resultado= mysqli_query($connection,$query);
+    if (mysqli_fetch_array($resultado)){
         return 0;
     }else{
         return 1;

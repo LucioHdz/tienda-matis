@@ -79,7 +79,7 @@
           </li>
           <hr>
           <li>
-            <a href="./agregarcategoria.html">
+            <a href="./agregarcategoria.php">
               <i class="fas fa-sitemap"></i>
               <p>Agregar Categoria</p>
             </a>
