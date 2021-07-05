@@ -166,7 +166,8 @@
                     $resultado = mysqli_query($connection,$query);
                     $results = mysqli_fetch_array($resultado);
                     if ($results){
-                        echo " <p id ='idticket'> ".($results["noTicket"]+1)."</p>";
+                        $noTicket = $results["noTicket"]+1;
+                        echo " <p id ='idticket'> ".($noTicket)."</p>";
                     }else{
                         echo " <p id ='idticket'>1</p>";
                     }
@@ -192,6 +193,15 @@
                         <input type="submit" class="btn btn-primary mb-5" id="terminar-venta" value = "Terminar">
                     </form>
                     <!--Fin Fomulario-->
+                    <?php
+                        if(isset($_POST['agregar-articulo'])){
+                            
+                        }else if(isset($_POST['terminar-venta'])){
+                            
+                        }else{
+                            // crear ticket
+                        }
+                    ?>
                 </div>
             </div>
             <footer class="footer">
