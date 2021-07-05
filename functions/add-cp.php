@@ -15,6 +15,21 @@ function validar_cat_prod($cat,$prod,$connection){
     }else{
         return 1;
     }
+    
+}
 
+function validar_productos($id,$connection){
+    $query = "SELECT
+        producto.codigoDeBarras
+    FROM
+        producto
+    WHERE
+        producto.codigoDeBarras ="."'$id'";
+    $resultado = mysqli_query($connection,$query);
+    if (mysqli_fetch_array($resultado)){
+        return 0;
+    }else{
+        return 1;
+    }
 }
 ?>  

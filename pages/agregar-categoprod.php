@@ -220,6 +220,7 @@
                                     echo "<script >swal('No se pudo completar la operacion',
                                     'presiona ok y verifica datos repetidos o faltantes','error')</script>";
                                 }
+                                mysqli_close($connection);
                             }
                         ?>
                     </div>

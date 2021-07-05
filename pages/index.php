@@ -1,15 +1,15 @@
 <!--
 
-=========================================================
+!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!==
 * Now UI Dashboard - v1.5.0
-=========================================================
+!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!==
 
 * Product Page: https://www.creative-tim.com/product/now-ui-dashboard
 * Copyright 2019 Creative Tim (http://www.creative-tim.com)
 
 * Designed by www.invisionapp.com Coded by www.creative-tim.com
 
-=========================================================
+!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!=!==
 
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
@@ -36,6 +36,7 @@
   <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="../assets/demo/demo.css" rel="stylesheet" />
+  <script src ='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
 </head>
 
 <body class="">
@@ -153,7 +154,7 @@
       <div class="content">
         <div class="row">
           <!--Inicio Fomulario-->
-          <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action="guardar-producto.php" method="post">
+          <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action="index.php" method="post">
             <div class="mb-3">
               <label for="lblCodigoBarras" class="form-label">Codigo de barras</label>
               <input type="text" class="form-control" id="lblCodigoBarras" aria-describedby="emailHelp" name="txtCodigoBarras">
@@ -205,6 +206,49 @@
             <button type="submit" class="btn btn-primary mb-5">Guardar Producto</button>
           </form>
           <!--Fin Fomulario-->
+          <?php
+          include("connections/Connections.php");
+          include("../functions/add-cp.php");
+          if (isset($_POST['txtCodigoBarras'])){
+            $cb = $_POST['txtCodigoBarras'];
+            $nombre = $_POST['txtNombre'];
+            $proveedor = $_POST['cmbProveedor'];
+            $compra = $_POST['txtPrecioCompra'];
+            $venta = $_POST['txtPrecioVenta'];
+            $stock = $_POST['txtStock'];
+            $status = $_POST['cmbStatus'];
+
+            if (!($cb !="" || $nombre != "" || $proveedor != "" || $compra != "" || $venta != "" || $stock != "" || $status != "")){
+              $error = 0;
+            }else{
+              $error = validar_productos($cb,$connection);
+            }
+
+            if($error == 1){
+              $query = "INSERT 
+                producto 
+              VALUES(
+                $cb,
+                UPPER(TRIM('$nombre')),
+                $proveedor,
+                $compra,
+                $venta,
+                $stock,
+                $status)";
+              if(mysqli_query($connection,$query)){
+                echo "<script >swal('Agregado correctamente!!','presiona ok','success')</script>";
+              }
+              else{
+                echo "<script >swal('No se pudo completar la operacion',
+                'Datos incorrectos','error')</script>";
+              }
+              mysqli_close($connection);
+            }else{
+              echo "<script >swal('No se pudo completar la operacion',
+              'presiona ok y verifica datos faltantes','error')</script>";
+            }
+          }
+        ?>
         </div>
       </div>
       <footer class="footer">
