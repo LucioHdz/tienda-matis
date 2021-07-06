@@ -181,7 +181,7 @@
                                     <td scope='row'>".$results["id"]."</td> 
                                     <td scope='row'>".$results["Proveedor"]."</td> 
                                     <td scope='row'>".$results["Contacto"]."</td> 
-                                    <td><a href='./editar-Proveedor.php?identiProveedor=".$results["id"]."'><i class='fas fa-edit'></a></i></td>
+                                    <td><a href='./editar-Proveedor.php?idenProveedor=".$results["id"]."'><i class='fas fa-edit'></a></i></td>
                                     <td><a href='./eliminar-Proveedor.php?idenProveedor=".$results["id"]."'><i class='fas fa-trash-alt'></a></i></td>
                                   </tr>
                                 ";

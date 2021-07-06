@@ -1,8 +1,8 @@
 <?php
 
-$server = "127.0.0.1:3310";
+$server = "127.0.0.1";
 $user = "root";
-$password = "";
+$password = "mbf8jss17c";
 $bd = "tiendamatis";
 
 $connection = mysqli_connect(

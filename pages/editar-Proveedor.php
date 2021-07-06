@@ -18,6 +18,7 @@
 <html lang="es">
 
 <head>
+    <?php session_start()?>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <!--<link rel="icon" type="image/png" href="../assets/img/favicon.png">-->
@@ -36,6 +37,7 @@
     <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/demo/demo.css" rel="stylesheet" />
+    <script src ='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
 </head>
 
 <body class="">
@@ -151,15 +153,42 @@
             <!-- End Navbar -->
             <?php
                 include("connections/Connections.php");
-                $nombreProveedor=$_POST['txtNombre'];
-                $contactoProveedor= $_POST['txtContacto'];
-
-                $sentencia="SELECT 
-                                proveedor.nombre,
-                                proveedor.contacto
-                            FROM proveedor";
-                $resultado= mysqli_query($connection,$sentencia);
-                $proveedor=mysqli_fetch_assoc($resultado);
+                if  (isset($_POST['actualizar'])){
+                    $nombreProveedor=$_POST['txtNombre'];
+                    $contactoProveedor= $_POST['txtContacto'];
+                    $id = $_SESSION['id'];
+                    $proveedor['nombre'] =$nombreProveedor;
+                    $proveedor['contacto'] =$contactoProveedor;
+                    if ($nombreProveedor ==""|| $contactoProveedor == "" ){
+                        echo "<script >swal('LLENA TODOS LOS CAMPOS!!','presiona ok',error')</script>";
+                    }else{
+                        $sentencia = "UPDATE 
+                                proveedor 
+                            SET 
+                                nombre = '$nombreProveedor', contacto = '$contactoProveedor'
+                            WHERE
+                                proveedor.idProveedor = $id";
+                            if (mysqli_query($connection,$sentencia)){
+                                echo "<script >swal('Agregado correctamente!!','presiona ok','success')</script>";
+                            }
+                            
+                        }
+                }else{
+                    $id=$_GET['idenProveedor'];
+                    obtener_proveedor($connection,$id);
+                    $proveedor = $_SESSION['proveedor'];
+                }
+                function obtener_proveedor($connection,$id){
+                    $sentencia="SELECT 
+                            proveedor.nombre,
+                            proveedor.contacto
+                        FROM proveedor
+                        WHERE proveedor.idProveedor = $id";
+                    $resultado = mysqli_query($connection,$sentencia);
+                    $proveedor = mysqli_fetch_assoc($resultado);
+                    $_SESSION['id']= $id;
+                    $_SESSION['proveedor'] = $proveedor;
+                }
             ?>
             <div class="content">
                 <div class="row">
@@ -173,7 +202,7 @@
                             <label for="lblContacto" class="form-label">Contacto</label>
                             <input type="text" class="form-control" id="lblContacto" name="txtContacto" value="<?php echo $proveedor['contacto']?>">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-5">Actualizar Proveedor</button>
+                        <button type="submit" class="btn btn-primary mb-5" name = "actualizar">Actualizar Proveedor</button>
                     </form>
                     <!--Fin Fomulario-->
                 </div>
