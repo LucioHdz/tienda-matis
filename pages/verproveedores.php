@@ -36,6 +36,7 @@
     <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/demo/demo.css" rel="stylesheet" />
+    <script src ='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
 </head>
 
 <body class="">
@@ -159,6 +160,8 @@
 
                                 <th scope="col">Proveedor</th>
                                 <th scope="col">Contacto</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -167,17 +170,19 @@
                             $query = "SELECT
                             proveedor.idProveedor AS id, 
                             proveedor.nombre AS Proveedor, 
-                            proveedor.contacto AS 'Contacto'
-                        FROM
-                            proveedor ORDER BY Proveedor";
+                            proveedor.contacto AS Contacto
+                            FROM
+                            proveedor ORDER BY idProveedor";
                             $resultado = mysqli_query($connection,$query);
-
-                            while($results = mysqli_fetch_array($resultado)){
+                            
+                            while($results = mysqli_fetch_assoc($resultado)){
                                 echo "
                                   <tr>
-                                  <th scope='row'>".$results["id"]."</th> 
-                                  <th scope='row'>".$results["Proveedor"]."</th> 
-                                  <th scope='row'>".$results["Contacto"]."</th> 
+                                    <td scope='row'>".$results["id"]."</td> 
+                                    <td scope='row'>".$results["Proveedor"]."</td> 
+                                    <td scope='row'>".$results["Contacto"]."</td> 
+                                    <td><a href='./editar-Proveedor.php?identiProveedor=".$results["id"]."'><i class='fas fa-edit'></a></i></td>
+                                    <td><a href='./eliminar-Proveedor.php?idenProveedor=".$results["id"]."'><i class='fas fa-trash-alt'></a></i></td>
                                   </tr>
                                 ";
                             }

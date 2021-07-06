@@ -1,13 +1,18 @@
-<?php
-    include("connections/Connections.php");
-    $identificadorProveedor= $_GET['idenProveedor'];
-    $sentencia="DELETE FROM proveedor WHERE idProveedor=$identificadorProveedor";
-
-    if(mysqli_query($connection,$sentencia)){
-        header('location:verproveedores.php');
-    }else{
-        echo 'ERROR AL ELIMINAR PROVEEDOR';
-    }
-
-    mysqli_close($conexion);
-?>
+<script type="text/javascript">    
+        var respuesta = confirm("¿Deseas eliminar el proveedor?");
+        if(respuesta==true){
+            <?php
+            include("connections/Connections.php");
+            $identificadorProveedor= $_GET['idenProveedor'];
+            $query="DELETE FROM proveedor WHERE idProveedor=$identificadorProveedor";
+            mysqli_query($connection,$query);
+            echo "<script >swal('Proveedor eliminado','presiona ok','success')</script>";
+            ?>
+        }else{
+            <?php
+            include("connections/Connections.php");
+            echo "<script >swal('No se pudo eliminar el proveedor',
+                'presiona ok','error')</script>";
+            ?>
+        }
+</script>
