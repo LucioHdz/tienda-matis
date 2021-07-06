@@ -16,8 +16,8 @@
 -->
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
+    <?php session_start()?>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
     <!--<link rel="icon" type="image/png" href="../assets/img/favicon.png">-->
@@ -143,7 +143,7 @@
                         </div>
 
                         <div class="row">
-                            <h2 class="m-3 ml-5 text-light">Ver Venta-Producto</h2>
+                            <h2 class="m-3 ml-5 text-light">Agregar Venta-Producto</h2>
                         </div>
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -167,39 +167,108 @@
                     $results = mysqli_fetch_array($resultado);
                     if ($results){
                         $noTicket = $results["noTicket"]+1;
-                        echo " <p id ='idticket'> ".($noTicket)."</p>";
                     }else{
-                        echo " <p id ='idticket'>1</p>";
+                        $noTicket = 1;
                     }
+                    echo " <p id ='idticket'> ".($noTicket)."</p>";
                     ?>
                 </div>
                 <div class="row">
                     <!--Inicio Fomulario-->
-                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5">
+                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action = "agregar-venta.php" method="post">
                             <div class="mb-3">
-                                <label for="lblCodigoBarras" class="form-label">Codigo de barras</label>
-                                <input type="text" class="form-control" id="lblCodigoBarras" aria-describedby="emailHelp">
+                                <select name="cb" id="codigobarras">
+                                <option selected>-Producto-</option>
+                                <?php
+                                    include("connections/Connections.php");
+                                    
+                                    $query = "SELECT
+                                    producto.codigoDeBarras, 
+                                    producto.nombre
+                                FROM
+                                    producto
+                                ORDER BY
+                                    producto.nombre";
+                                $resultado = mysqli_query($connection,$query);
+                                while($results = mysqli_fetch_array($resultado)){
+                                    echo "<option value=".$results['codigoDeBarras'].">".$results['nombre']."</option>";
+                                }
+                                mysqli_close($connection);
+                                ?>
+                                </select>
                             </div>
                             <div class="mb-3">
                                 <label for="lblCantidad" class="form-label">Cantidad</label>
-                                <input type="number" class="form-control" id="lblCantidad">
+                                <input type="number" class="form-control" name = "txtCantidad" id="lblCantidad">
                             </div>
                             
                         <!-- <div class="mb-3">
               <label class="form-label">Total Producto</label>
             </div> -->
 
-                        <input type="submit" class="btn btn-primary mb-5" id="agregar-articulo" value= "Agregar">
-                        <input type="submit" class="btn btn-primary mb-5" id="terminar-venta" value = "Terminar">
+                        <input type="submit" class="btn btn-primary mb-5" name ="agregar-articulo" value= "Agregar">
+                        <input type="submit" class="btn btn-primary mb-5" name="terminar-venta" value = "Terminar">
                     </form>
                     <!--Fin Fomulario-->
                     <?php
-                        if(isset($_POST['agregar-articulo'])){
-                            
-                        }else if(isset($_POST['terminar-venta'])){
-                            
+                        include("connections/Connections.php");
+                        include("../functions/consultas.php");
+                        $total = 0;
+                        $consultas = [];
+                        if (isset($_POST["agregar-articulo"])){
+                            //obtener formulario
+                            producto($connection,$noTicket);
+
+                        }else if (isset($_POST["terminar-venta"])){
+
+                            producto($connection,$noTicket);
+                            $consultas=$_SESSION['consultas'];
+                            $total = $_SESSION['total'];
+                            for ($i = 0; $i < count($consultas);$i++){
+                                mysqli_query($connection,$consultas[$i]);
+                            }
+                            $queryUpdate = "UPDATE venta SET total = total + $total WHERE noTicket =$noTicket";
+                            if (mysqli_query($connection,$queryUpdate)){
+                                //pasar a ver ticket
+                            }
+
                         }else{
-                            // crear ticket
+                            // Abrir la ventana
+                            $query = "INSERT venta VALUES($noTicket,CURDATE(),0)";
+                            $consultas[] = $query;
+
+                            // crear variables de sesion
+                            $_SESSION['total']  =$total;
+                            $_SESSION['consultas'] = $consultas;
+                        }
+
+                        function producto($connection,$noTicket){
+                            $codigobarras = $_POST['cb'];
+                            $cantidad = $_POST['txtCantidad'];
+
+
+                            if ($codigobarras == "-Producto-"||$cantidad ==""){
+                                //error
+                            }else{
+                                // rellenar variables globales
+                                $consultas = $_SESSION['consultas'];
+                            $total = $_SESSION['total'];
+                            //obtener precios
+                            $query = "SELECT
+                                producto.precioVenta
+                            FROM
+                                producto
+                            WHERE
+                                producto.codigoDeBarras = $codigobarras";
+                            $resultado = hacerConsulta($query,$connection);
+                            $total_prod = $resultado["precioVenta"] * $cantidad;
+                            $total += $total_prod;
+                            
+                            $query = "INSERT detalleventaproducto VALUES(DEFAULT,$codigobarras,$noTicket,$cantidad,$total_prod)";
+                            $consultas[]=$query;
+                            $_SESSION['total']  =$total;
+                            $_SESSION['consultas'] = $consultas;
+                            }
                         }
                     ?>
                 </div>

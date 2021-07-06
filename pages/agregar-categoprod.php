@@ -207,7 +207,11 @@
                             if (isset($_POST['categoria'])){
                                 $categoria = $_POST['categoria'];
                                 $producto = $_POST['producto'];
-                                if ($categoria!= "" || $producto!= ""){
+                                // # - 1 0 --1---0
+                                // - - 0 1
+                                // - ! 1 0
+                                // # # 1 0
+                                if (($categoria == "-Categoria-" || $producto== "-Producto-")){
                                     $error = 0;
                                 }else{
                                     $error = validar_cat_prod($categoria,$producto,$connection);
