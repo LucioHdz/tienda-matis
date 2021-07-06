@@ -66,7 +66,7 @@
                         </a>
                     </li>
                     <hr>
-                    <li class="active ">
+                    <li>
                         <a href="./agregarproveedores.php">
                             <i class="fas fa-parachute-box"></i>
                             <p>Agregar Proveedor</p>
@@ -79,7 +79,7 @@
                         </a>
                     </li>
                     <hr>
-                    <li>
+                    <li class="active ">
                         <a href="./agregarcategoria.php">
                             <i class="fas fa-sitemap"></i>
                             <p>Agregar Categoria</p>
@@ -143,7 +143,7 @@
                             </button>
                         </div>
                         <div class="row">
-                            <h2 class="m-3 text-light ml-5">Editar Proveedor</h2>
+                            <h2 class="m-3 text-light ml-5">Editar Categoria</h2>
                         </div>
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
@@ -153,56 +153,51 @@
             <!-- End Navbar -->
             <?php
                 include("connections/Connections.php");
-                if  (isset($_POST['actualizar'])){
-                    $nombreProveedor=$_POST['txtNombre'];
-                    $contactoProveedor= $_POST['txtContacto'];
+                if  (isset($_POST['actualizarCat'])){
+                    $nombreCategoria=$_POST['txtCategoria'];
+                    
                     $id = $_SESSION['id'];
-                    $proveedor['nombre'] =$nombreProveedor;
-                    $proveedor['contacto'] =$contactoProveedor;
-                    if ($nombreProveedor ==""|| $contactoProveedor == "" ){
+                    $categoria['nombre'] =$nombreCategoria;
+                    
+                    if ($nombreCategoria ==""){
                         echo "<script >swal('LLENA TODOS LOS CAMPOS!!','presiona ok',error')</script>";
                     }else{
                         $sentencia = "UPDATE 
-                                proveedor 
-                            SET 
-                                nombre = UPPER(TRIM('$nombreProveedor')), contacto = UPPER(TRIM('$contactoProveedor'))
-                            WHERE
-                                proveedor.idProveedor = $id";
+                            categoria 
+                        SET 
+                            categoria.nombre=UPPER(TRIM('$nombreCategoria')) 
+                        WHERE 
+                            categoria.idCategoria=$id";
                             if (mysqli_query($connection,$sentencia)){
-                                echo "<script >swal('Proveedor actualizado','presiona ok','success')</script>";
+                                echo "<script >swal('Categoria actualizada','presiona ok','success')</script>";
                             }
                             
                         }
                 }else{
-                    $id=$_GET['idenProveedor'];
-                    obtener_proveedor($connection,$id);
-                    $proveedor = $_SESSION['proveedor'];
+                    $id=$_GET['idenCat'];
+                    obtener_categoria($connection,$id);
+                    $categoria = $_SESSION['categoria'];
                 }
-                function obtener_proveedor($connection,$id){
+                function obtener_categoria($connection,$id){
                     $sentencia="SELECT 
-                            proveedor.nombre,
-                            proveedor.contacto
-                        FROM proveedor
-                        WHERE proveedor.idProveedor = $id";
+                    categoria.nombre
+                    FROM categoria
+                    WHERE categoria.idCategoria = $id";
                     $resultado = mysqli_query($connection,$sentencia);
-                    $proveedor = mysqli_fetch_assoc($resultado);
+                    $categoria = mysqli_fetch_assoc($resultado);
                     $_SESSION['id']= $id;
-                    $_SESSION['proveedor'] = $proveedor;
+                    $_SESSION['categoria'] = $categoria;
                 }
             ?>
             <div class="content">
                 <div class="row">
                     <!--Inicio Fomulario-->
-                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action="editar-Proveedor.php" method="post">
+                    <form class="col-lg-6 m-auto col-sm-8 col-10 mt-5" action="./editar-Categoria.php" method="post">
                         <div class="mb-3">
-                            <label for="lblNombre" class="form-label">Nombre</label>    
-                            <input type="text" class="form-control" id="lblNombre" name="txtNombre" value="<?php echo $proveedor['nombre'] ?>">
+                            <label for="lblNombre" class="form-label">Nombre de la Categoria</label>
+                            <input type="text" class="form-control" id="lblNombre" name="txtCategoria" value="<?php echo $categoria['nombre']?>">
                         </div>
-                        <div class="mb-3">
-                            <label for="lblContacto" class="form-label">Contacto</label>
-                            <input type="text" class="form-control" id="lblContacto" name="txtContacto" value="<?php echo $proveedor['contacto']?>">
-                        </div>
-                        <button type="submit" class="btn btn-primary mb-5" name = "actualizar">Actualizar Proveedor</button>
+                        <button type="submit" class="btn btn-primary mb-5" name="actualizarCat">Guardar Categoria</button>
                     </form>
                     <!--Fin Fomulario-->
                 </div>

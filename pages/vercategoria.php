@@ -158,6 +158,8 @@
                             <tr>
                                 <th scope="col">Identificador de Categoria</th>
                                 <th scope="col">Categoria</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -173,8 +175,10 @@
                                 while($results = mysqli_fetch_array($resultado)){
                                     echo "
                                     <tr>
-                                    <th scope='row'>".$results["Id"]."</th> 
-                                    <th scope='row'>".$results["Categoria"]."</th> 
+                                    <td scope='row'>".$results["Id"]."</td> 
+                                    <td scope='row'>".$results["Categoria"]."</td> 
+                                    <td><a href='./editar-Categoria.php?idenCat=".$results["Id"]."'><i class='fas fa-edit'></a></i></td>
+                                    <td><a href='./eliminar-Categoria.php?idenCat=".$results["Id"]."'><i class='fas fa-trash-alt'></a></i></td>
                                     </tr>
                                     ";
                                 }
