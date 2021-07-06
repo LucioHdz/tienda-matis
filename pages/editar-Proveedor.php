@@ -168,9 +168,11 @@
                                 nombre = UPPER(TRIM('$nombreProveedor')), contacto = UPPER(TRIM('$contactoProveedor'))
                             WHERE
                                 proveedor.idProveedor = $id";
-                            if (mysqli_query($connection,$sentencia)){
-                                echo "<script >swal('Proveedor actualizado','presiona ok','success')</script>";
-                            }
+                        if (mysqli_query($connection,$sentencia)){
+                            echo "<script >swal('Proveedor actualizado','presiona ok','success')</script>";
+                        }else{
+                            echo "<script >swal('LLENA TODOS LOS CAMPOS CORRECTAMENTE!!','presiona ok',error')</script>";
+                        }
                             
                         }
                 }else{

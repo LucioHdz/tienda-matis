@@ -250,24 +250,36 @@
                             if ($codigobarras == "-Producto-"||$cantidad ==""){
                                 //error
                             }else{
+
                                 // rellenar variables globales
                                 $consultas = $_SESSION['consultas'];
-                            $total = $_SESSION['total'];
+                                $total = $_SESSION['total'];
                             //obtener precios
-                            $query = "SELECT
-                                producto.precioVenta
-                            FROM
-                                producto
-                            WHERE
-                                producto.codigoDeBarras = $codigobarras";
-                            $resultado = hacerConsulta($query,$connection);
-                            $total_prod = $resultado["precioVenta"] * $cantidad;
-                            $total += $total_prod;
-                            
-                            $query = "INSERT detalleventaproducto VALUES(DEFAULT,$codigobarras,$noTicket,$cantidad,$total_prod)";
-                            $consultas[]=$query;
-                            $_SESSION['total']  =$total;
-                            $_SESSION['consultas'] = $consultas;
+                                $query = "SELECT
+                                    producto.precioVenta,
+                                    producto.stock
+                                FROM
+                                    producto
+                                WHERE
+                                    producto.codigoDeBarras = $codigobarras";
+                                $resultado = hacerConsulta($query,$connection);
+                                
+                                $stock = $resultado['stock'] - $cantidad;
+                                if ($stock >= 0){
+                                    $total_prod = $resultado["precioVenta"] * $cantidad;
+                                    $total += $total_prod;
+                                    $query = "INSERT detalleventaproducto VALUES(DEFAULT,$codigobarras,$noTicket,$cantidad,$total_prod)";
+                                    $consultas[]=$query;
+                                    $status  = 1;
+                                    if ($stock == 0){
+                                        $status  = 0;
+                                    }
+                                    $query = "UPDATE producto SET stock = $stock , status = $status  WHERE producto.codigoDeBarras = $codigobarras";
+                                    $_SESSION['total']  =$total;
+                                    $_SESSION['consultas'] = $consultas;
+                                }else{
+                                    //la cantidad es mayor a el amacen
+                                }
                             }
                         }
                     ?>
