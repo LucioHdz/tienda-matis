@@ -25,12 +25,10 @@
     <title>
         Proyecto Tiendita | TESJI
     </title>
-    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-        name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
     <!--     Fonts and icons     -->
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css"
-        integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- CSS Files -->
     <link href="../assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
@@ -103,25 +101,25 @@
                         </a>
                     </li>
                     <hr>
-                    <li >
+                    <li>
                         <a href="./agregar-venta.php">
                             <i class="fa fa-plus-circle" aria-hidden="true"></i>
-                          <p>Agregar Venta</p>
+                            <p>Agregar Venta</p>
                         </a>
-                      </li>
-                      <li >
+                    </li>
+                    <li>
                         <a href="./ver-venta.php">
                             <i class="fa fa-credit-card" aria-hidden="true"></i>
-                          <p>Ver Venta</p>
+                            <p>Ver Venta</p>
                         </a>
-                      </li>
-                      <hr>
-                      <li>
+                    </li>
+                    <hr>
+                    <li>
                         <a href="./ver-ticket.php">
-                          <i class="fa fa-list-alt" aria-hidden="true"></i>
-                          <p>Ver Ticket</p>
+                            <i class="fa fa-list-alt" aria-hidden="true"></i>
+                            <p>Ver Ticket</p>
                         </a>
-                      </li>
+                    </li>
                     </li>
                 </ul>
             </div>
@@ -162,6 +160,8 @@
                                 <th scope="col">Precio Compra</th>
                                 <th scope="col">Precio Venta</th>
                                 <th scope="col">Almacen</th>
+                                <th scope="col">Editar</th>
+                                <th scope="col">Eliminar</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -182,21 +182,23 @@
                                     producto.idProveedor = proveedor.idProveedor
                             WHERE
                                 producto.status = 1 ORDER BY Producto";
-                            $resultado = mysqli_query($connection,$query);
+                            $resultado = mysqli_query($connection, $query);
 
-                            while($results = mysqli_fetch_array($resultado)){
+                            while ($results = mysqli_fetch_array($resultado)) {
                                 echo "
                                   <tr>
-                                  <th scope='row'>".$results["Codigo de barras"]."</th> 
-                                  <th scope='row'>".$results["Producto"]."</th> 
-                                  <th scope='row'>".$results["Proveedor"]."</th> 
-                                  <th scope='row'>".$results["Precio compra"]."</th> 
-                                  <th scope='row'>".$results["Precio venta"]."</th> 
-                                  <th scope='row'>".$results["Almacen"]."</th> 
+                                  <th scope='row'>" . $results["Codigo de barras"] . "</th> 
+                                  <th scope='row'>" . $results["Producto"] . "</th> 
+                                  <th scope='row'>" . $results["Proveedor"] . "</th> 
+                                  <th scope='row'>" . $results["Precio compra"] . "</th> 
+                                  <th scope='row'>" . $results["Precio venta"] . "</th> 
+                                  <th scope='row'>" . $results["Almacen"] . "</th>
+                                  <td><a href='./editar-producto.php?codBarras=" . $results["Codigo de barras"] . "'><i class='fas fa-edit'></a></i></td>
+                                  <td><a href='./eliminar-producto.php?codBarras=" . $results["Codigo de barras"] . "'><i class='fas fa-trash-alt'></a></i></td>
                                   </tr>
                                 ";
                             }
-                          ?>
+                            ?>
                         </tbody>
                     </table>
                     <!--Fin Tabla-->
@@ -241,7 +243,7 @@
     <!-- Now Ui Dashboard DEMO methods, don't include it in your project! -->
     <script src="../assets/demo/demo.js"></script>
     <script>
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Javascript method's body can be found in assets/js/demos.js
             demo.initDashboardPageCharts();
 
