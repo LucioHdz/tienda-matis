@@ -142,7 +142,7 @@
                             </button>
                         </div>
                         <div class="row">
-                            <h2 class="m-3 text-light ml-5">Agregar Productos</h2>
+                            <h2 class="m-3 text-light ml-5">Actualizar Productos</h2>
                         </div>
                     </div>
                     <div class="collapse navbar-collapse justify-content-end" id="navigation">
