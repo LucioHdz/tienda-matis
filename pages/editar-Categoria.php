@@ -197,7 +197,7 @@
                             <label for="lblNombre" class="form-label">Nombre de la Categoria</label>
                             <input type="text" class="form-control" id="lblNombre" name="txtCategoria" value="<?php echo $categoria['nombre']?>">
                         </div>
-                        <button type="submit" class="btn btn-primary mb-5" name="actualizarCat">Guardar Categoria</button>
+                        <button type="submit" class="btn btn-primary mb-5" name="actualizarCat">Actualizar Categoria</button>
                     </form>
                     <!--Fin Fomulario-->
                 </div>
