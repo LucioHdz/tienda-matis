@@ -162,8 +162,8 @@
                 $stock = $_POST['txtStock'];
                 $status = $_POST['cmbStatus'];
                 $id = $_SESSION['id'];
-                $producto['codigoBarras'] = $cb;
-                $producto['nombreProd'] = $nombre;
+                $producto['codigoDeBarras'] = $cb;
+                $producto['nombre'] = $nombre;
                 $producto['proveedor'] = $proveedor;
                 $producto['precioCompra'] = $precioCompra;
                 $producto['precioVenta'] = $precioVenta;
@@ -175,11 +175,13 @@
                     $sentencia = "UPDATE 
                                 producto 
                             SET 
-                                codigoDeBarras = '$cb', nombre = UPPER(TRIM('$nombre')), idProveedor = $proveedor, precioCompra = $precioCompra, precioVenta = $precioVenta, stock = $stock, `status` = $status
+                                codigoDeBarras = '$cb', nombre = UPPER(TRIM('$nombre')), idProveedor = $proveedor, precioCompra = $precioCompra, precioVenta = $precioVenta, stock = $stock, status = $status
                             WHERE
                                 producto.codigoDeBarras = $id";
                     if (mysqli_query($connection, $sentencia)) {
-                        echo "<script >swal('Proveedor actualizado','presiona ok','success')</script>";
+                        echo "<script >
+                        swal('Producto actualizado','presiona ok','success');
+                        </script>";
                     }
                 }
             } else {
@@ -196,7 +198,7 @@
                 producto.precioCompra, 
                 producto.precioVenta, 
                 producto.stock, 
-                producto.`status`
+                producto.status
             FROM
                 producto
             WHERE
