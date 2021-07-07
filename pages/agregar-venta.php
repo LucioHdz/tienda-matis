@@ -36,6 +36,7 @@
     <link href="../assets/css/now-ui-dashboard.css?v=1.5.0" rel="stylesheet" />
     <!-- CSS Just for demo purpose, don't include it in your project -->
     <link href="../assets/demo/demo.css" rel="stylesheet" />
+    <script src ='https://unpkg.com/sweetalert/dist/sweetalert.min.js'></script>
 </head>
 
 <body class="">
@@ -159,10 +160,10 @@
                     include("connections/Connections.php");
                     $query = "SELECT
                     venta.noTicket
-                FROM
-                    venta
-                ORDER BY
-                    venta.noTicket DESC LIMIT 1";
+                    FROM
+                        venta
+                    ORDER BY
+                        venta.noTicket DESC LIMIT 1";
                     $resultado = mysqli_query($connection,$query);
                     $results = mysqli_fetch_array($resultado);
                     if ($results){
@@ -187,6 +188,8 @@
                                     producto.nombre
                                 FROM
                                     producto
+                                WHERE
+                                    producto.status = 1
                                 ORDER BY
                                     producto.nombre";
                                 $resultado = mysqli_query($connection,$query);
@@ -221,17 +224,20 @@
 
                         }else if (isset($_POST["terminar-venta"])){
 
-                            producto($connection,$noTicket);
-                            $consultas=$_SESSION['consultas'];
-                            $total = $_SESSION['total'];
-                            for ($i = 0; $i < count($consultas);$i++){
-                                mysqli_query($connection,$consultas[$i]);
-                            }
-                            $queryUpdate = "UPDATE venta SET total = total + $total WHERE noTicket =$noTicket";
-                            if (mysqli_query($connection,$queryUpdate)){
-                                //pasar a ver ticket
-                            }
-
+                           if( producto($connection,$noTicket)){
+                               $consultas=$_SESSION['consultas'];
+                               $total = $_SESSION['total'];
+                               for ($i = 0; $i < count($consultas);$i++){
+                                   mysqli_query($connection,$consultas[$i]);
+                               }
+                               $queryUpdate = "UPDATE venta SET total = total + $total WHERE noTicket =$noTicket";
+                               if (mysqli_query($connection,$queryUpdate)){
+                                   //pasar a ver ticket
+                                   echo "<script >swal('Venta terminada continuar a ver ticket','presione ok para continuar','success')</script>";
+                               }
+                           }else{
+                            echo "<script >swal('Ingrese un producto y cantidad validos','presione ok para continuar','error')</script>";
+                           }
                         }else{
                             // Abrir la ventana
                             $query = "INSERT venta VALUES($noTicket,CURDATE(),0)";
@@ -245,12 +251,14 @@
                         function producto($connection,$noTicket){
                             $codigobarras = $_POST['cb'];
                             $cantidad = $_POST['txtCantidad'];
-
-
+                            
+                            
                             if ($codigobarras == "-Producto-"||$cantidad ==""){
                                 //error
+                                echo "<script >swal('Ingrese un producto y cantidad validos','presione ok para continuar','error')</script>";
+                                return false;
                             }else{
-
+                                
                                 // rellenar variables globales
                                 $consultas = $_SESSION['consultas'];
                                 $total = $_SESSION['total'];
@@ -274,12 +282,15 @@
                                     if ($stock == 0){
                                         $status  = 0;
                                     }
-                                    $query = "UPDATE producto SET stock = $stock , status = $status  WHERE producto.codigoDeBarras = $codigobarras";
+                                    $query = "UPDATE producto SET producto.stock = $stock , producto.status = $status  WHERE producto.codigoDeBarras = $codigobarras";
+                                    $consultas[]=$query;
                                     $_SESSION['total']  =$total;
                                     $_SESSION['consultas'] = $consultas;
                                 }else{
                                     //la cantidad es mayor a el amacen
+                                    echo "<script >swal('No se puede comprar el producto','No contamos con esa cantidad disponible','error')</script>";
                                 }
+                                return true;
                             }
                         }
                     ?>
