@@ -240,7 +240,7 @@
                            }
                         }else{
                             // Abrir la ventana
-                            $query = "INSERT venta VALUES($noTicket,CURDATE(),0)";
+                            $query = "INSERT venta VALUES($noTicket,NOW(),0)";
                             $consultas[] = $query;
 
                             // crear variables de sesion
